@@ -1,7 +1,7 @@
 Python Sandbox
 ==============
 
-Python code written
+Python3 code written
 * late at night
 * while stalling on other projects
 
