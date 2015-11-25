@@ -20,6 +20,8 @@ if __name__ == '__main__':
 
     assert inst.charm == "strange" # normal so far..
 
+    inst_mem_loc = id(inst) # grab the memory location
+
     inst.method() # method a
 
     inst.__class__ = B # THIS. WAT IS THIS. Hot-swapping against the class of the instance -- this is why Python is slow
@@ -28,7 +30,9 @@ if __name__ == '__main__':
 
     inst.method() # method b (?!)
 
-    try:
-        inst.__class__ = int
-    except TypeError as e:
-        print(e)
+    assert inst_mem_loc == id(inst) # it's the same object?!
+
+    inst.__class__ = int # so in theory...
+
+    # TypeError: __class__ assignment: only for heap types
+    # yikes
