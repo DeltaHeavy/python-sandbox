@@ -64,7 +64,7 @@ def get_init():
 def usage():
     print("Usage:\n./gpa_calc.py [-i,--init]")
 
-def main(init=None):
+def main(init=False):
     init_count = None
     init_gpa = None
     if init:
@@ -93,7 +93,7 @@ if __name__ == '__main__':
     if "-h" in argv or "--help" in argv or "-?" in argv:
         usage()
     elif "-i" in argv or "--init" in argv:
-        main('init')
+        main(True)
     else:
         main()
     exit(0)
