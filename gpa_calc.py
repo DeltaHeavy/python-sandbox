@@ -19,27 +19,25 @@ GRADE_GPA_MAP = {
     "F":0,
 }
 
-def get_count():
+def get_count(msg):
     try:
-        class_count = int(input("How many classes have you taken? "))
-        if not class_count in range(1, 100):
+        class_count = int(input(msg))
+        if not class_count in range(100):
             raise ValueError
     except KeyboardInterrupt:
         exit(1)
     except:
-        print("Invalid input, enter a number between 1 and 100")
+        print("Invalid input, enter a number under 100")
         return
     return class_count
 
-def get_grade(ndx):
+def get_grade(msg):
     try:
-        grade = input("Enter grade for class %s: " % str(ndx + 1)).upper()
+        grade = input(msg).upper()
         if grade in GRADE_GPA_MAP:
             gpa = GRADE_GPA_MAP[grade]
-        elif float(grade) in VALID_GPAS:
-            gpa = float(grade)
         else:
-            raise ValueError
+            gpa = float(grade)
     except KeyboardInterrupt:
         exit(1)
     except:
@@ -53,23 +51,49 @@ def gpa_to_grade(avg):
         if avg >= gpa:
             return grade
 
-def main():
+def get_init():
+    grade = None
+    count = None
+    while count is None:
+        count = get_count("How many classes have you taken previously? ")
+    if count:
+        while grade is None:
+            grade = get_grade("What is your current GPA? ")
+    return count, grade
+
+def usage():
+    print("Usage:\n./gpa_calc.py [-i,--init]")
+
+def main(init=None):
+    init_count = None
+    init_gpa = None
+    if init:
+        init_count, init_gpa = get_init()
     class_count = None
     while class_count is None:
-        class_count = get_count()
+        class_count = get_count("How many classes would you like to average in? ")
     scores = []
     for i in range(class_count):
         gpa = None
         while gpa is None:
-            gpa = get_grade(i)
+            gpa = get_grade("Enter grade for class %s: " % str(i + 1))
             if gpa is not None:
                 scores.append(gpa)
+    if init_count:
+        scores.extend([init_gpa for i in range(init_count)])
     avg = sum(scores)/len(scores)
     grade = gpa_to_grade(avg)
     print(avg, "(" + grade + ")")
     redo = input("Start over? [yN] ").lower()
     if redo == 'y' or redo == "yes":
-        main()
+        main(init)
 
 if __name__ == '__main__':
-    main()
+    from sys import argv
+    if "-h" in argv or "--help" in argv or "-?" in argv:
+        usage()
+    elif "-i" in argv or "--init" in argv:
+        main('init')
+    else:
+        main()
+    exit(0)
