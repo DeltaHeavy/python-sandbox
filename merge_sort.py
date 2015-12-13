@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
 
-# O(n log n)
-# merge_sort recurses on n / 2 lists
-# culminating with a merge which traverses n elements
-# thus, we have an O(log N) algorithm which calls an O(n) algorithm
 # O(N log N)
 # But it's python so all the coefficients are huge
 
