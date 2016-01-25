@@ -5,11 +5,19 @@
 class A:
     charm = "strange"
 
+    def __init__(self):
+        print("INITING A")
+        self.testa = "init A"
+
     def method(self):
         print("method a")
 
 class B:
     foo = "bar"
+
+    def __init__(self):
+        print("INITING B")
+        self.testb = "init B"
 
     def method(self):
         print("method b")
