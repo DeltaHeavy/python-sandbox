@@ -26,7 +26,7 @@ if __name__ == '__main__':
     
     inst = A()
 
-    assert inst.charm == "strange" # normal so far..
+    assert inst.charm == "strange" # this passes, normal so far..
 
     inst_mem_loc = id(inst) # grab the memory location
 
@@ -34,7 +34,7 @@ if __name__ == '__main__':
 
     inst.__class__ = B # THIS. WAT IS THIS. Hot-swapping against the class of the instance -- this is why Python is slow
 
-    assert inst.foo == "bar" # WAT
+    assert inst.foo == "bar" # this passes...WAT
 
     inst.method() # method b (?!)
 
