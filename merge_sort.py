@@ -49,5 +49,6 @@ if __name__ == '__main__':
     if not "-q" in argv:
         print("Initial random list:")
         print(test)
+        print()
         print("Sorted list:")
         print(merge_sort(test))
